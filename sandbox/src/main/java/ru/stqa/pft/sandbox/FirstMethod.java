@@ -10,16 +10,15 @@ public class FirstMethod {
 
 
     // Пример использования из класса Poin через метод
-    Point p3 = new Point(2, 3, 4, 2);
+    System.out.println("Расстояние между точками примера №2 через метод = " + p1.distance(p2));
 
-    System.out.println("Расстояние между точками примера №2  = " + p3.distancePoint());
 
   }
 
 
   // Пример использования из класса FirstMethod
   public static double distance(Point p1, Point p2) {
-    return Math.sqrt(Math.pow(p2.x1 - p1.x1, 2) + Math.pow(p2.y1 - p1.y1, 2));
+    return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
   }
 
 
