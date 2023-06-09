@@ -8,7 +8,7 @@ import static ru.stqa.pft.sandbox.FirstMethod.distance;
 public class PointTests {
 
   @Test
-  public void Dist() {
+  public void dist() {
 
     Point p1 = new Point(2, 3);
     Point p2 = new Point(7, 9);
@@ -19,7 +19,7 @@ public class PointTests {
   }
 
   @Test
-  public void Dist2() {
+  public void dist2() {
 
 
     Point p3 = new Point(4, 5);
