@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 import java.time.Duration;
 
-public class AddNewContactTests {
+public class AddNewContactTest {
   private WebDriver wd;
 
   private JavascriptExecutor js;
@@ -17,11 +17,12 @@ public class AddNewContactTests {
 
     wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     js = (JavascriptExecutor) wd;
+
+    wd.get("http://localhost/addressbook/");
+    login();
   }
 
-  @Test
-  public void testAddNewContact() throws Exception {
-    wd.get("http://localhost/addressbook/");
+  private void login() {
     wd.findElement(By.name("user")).click();
     wd.findElement(By.name("user")).clear();
     wd.findElement(By.name("user")).sendKeys("admin");
@@ -29,7 +30,30 @@ public class AddNewContactTests {
     wd.findElement(By.name("pass")).clear();
     wd.findElement(By.name("pass")).sendKeys("secret");
     wd.findElement(By.xpath("//input[@value='Login']")).click();
-    wd.findElement(By.linkText("add new")).click();
+  }
+
+  @Test
+  public void testAddNewContact() throws Exception {
+    openAddNewContactForm();
+    fillNewContactForm();
+    submitForm();
+    gotoHomePage();
+    logOut();
+  }
+
+  private void logOut() {
+    wd.findElement(By.linkText("Logout")).click();
+  }
+
+  private void gotoHomePage() {
+    wd.findElement(By.linkText("home")).click();
+  }
+
+  private void submitForm() {
+    wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+  }
+
+  private void fillNewContactForm() {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
     wd.findElement(By.name("firstname")).sendKeys("Роман");
@@ -48,9 +72,10 @@ public class AddNewContactTests {
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).clear();
     wd.findElement(By.name("email")).sendKeys("lamzinrn@gmail.com");
-    wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
-    wd.findElement(By.linkText("home")).click();
-    wd.findElement(By.linkText("Logout")).click();
+  }
+
+  private void openAddNewContactForm() {
+    wd.findElement(By.linkText("add new")).click();
   }
 
   @AfterClass(alwaysRun = true)
