@@ -10,7 +10,7 @@ public class AddNewContactTest {
 
   private JavascriptExecutor js;
 
-  @BeforeClass(alwaysRun = true)
+  @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "libs/chromedriver.exe");
     wd = new ChromeDriver();
@@ -78,7 +78,7 @@ public class AddNewContactTest {
     wd.findElement(By.linkText("add new")).click();
   }
 
-  @AfterClass(alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
     wd.quit();
 
