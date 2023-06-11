@@ -7,9 +7,12 @@ import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
 
+import static org.testng.Assert.assertTrue;
+
 public class TestBase {
   public WebDriver wd;
   private JavascriptExecutor js;
+  private boolean acceptNextAlert = true;
 
   @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
@@ -126,5 +129,32 @@ public class TestBase {
 
   protected void openAddNewContactForm() {
     wd.findElement(By.linkText("add new")).click();
+  }
+
+  protected void confirmDeletion() {
+    assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
+  }
+
+  protected void deleteSelectedContact() {
+    wd.findElement(By.xpath("//input[@value='Delete']")).click();
+  }
+
+  protected void selectContact() {
+    wd.findElement(By.name("selected[]")).click();
+  }
+
+  private String closeAlertAndGetItsText() {
+    try {
+      Alert alert = wd.switchTo().alert();
+      String alertText = alert.getText();
+      if (acceptNextAlert) {
+        alert.accept();
+      } else {
+        alert.dismiss();
+      }
+      return alertText;
+    } finally {
+      acceptNextAlert = true;
+    }
   }
 }
