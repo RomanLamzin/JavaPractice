@@ -29,10 +29,6 @@ public class ApplicationManager {
   }
 
 
-  public void logOut() {
-    wd.findElement(By.linkText("Logout")).click();
-  }
-
   public void stop() {
     wd.quit();
   }
@@ -46,14 +42,6 @@ public class ApplicationManager {
     }
   }
 
-  public boolean isAlertPresent() {
-    try {
-      wd.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
 
   public GroupHelper getGroupHelper() {
     return groupHelper;

@@ -11,7 +11,7 @@ public class AddNewContactTest extends TestBase {
     app.getContactHelper().fillNewContactForm(new ContactData("Roman", "Lamzin", "New-Studio", "Samara", "89277778781", "lamzinrn@gmail.com"));
     app.getContactHelper().submitFormContact();
     app.getContactHelper().gotoHomePage();
-    app.logOut();
+
   }
 
 
