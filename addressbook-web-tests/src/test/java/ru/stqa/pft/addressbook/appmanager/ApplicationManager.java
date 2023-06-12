@@ -8,10 +8,9 @@ import java.time.Duration;
 
 import static org.testng.Assert.assertTrue;
 
-public class ApplicationManager  {
-
-   public WebDriver wd;
-
+public class ApplicationManager {
+  public WebDriver wd;
+  private  NavigationHelper navigationHelper ;
   private  GroupHelper groupHelper;
   private JavascriptExecutor js;
   private boolean acceptNextAlert = true;
@@ -23,6 +22,7 @@ public class ApplicationManager  {
     js = (JavascriptExecutor) wd;
     wd.get("http://localhost/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
+    navigationHelper = new NavigationHelper(wd)
     login("admin", "secret");
   }
 
@@ -38,10 +38,6 @@ public class ApplicationManager  {
 
   public void logOut() {
     wd.findElement(By.linkText("Logout")).click();
-  }
-
-  public void gotoGroupPage() {
-    wd.findElement(By.linkText("groups")).click();
   }
 
   public void stop() {
@@ -128,5 +124,9 @@ public class ApplicationManager  {
 
   public GroupHelper getGroupHelper() {
     return groupHelper;
+  }
+
+  public NavigationHelper getNavigationHelper() {
+    return navigationHelper;
   }
 }
