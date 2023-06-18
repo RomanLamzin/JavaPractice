@@ -1,12 +1,18 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.Browser;
 
 import java.time.Duration;
 
 public class ApplicationManager {
 
+  private final Browser browser;
   public WebDriver wd;
   private ContactHelper contactHelper;
   private SessionHelper sessionHelper;
@@ -14,9 +20,29 @@ public class ApplicationManager {
   private GroupHelper groupHelper;
   private JavascriptExecutor js;
 
+  public ApplicationManager(Browser browser) {
+
+    this.browser = browser;
+  }
+
   public void init() {
-    System.setProperty("webdriver.chrome.driver", "libs/chromedriver.exe");
-    wd = new ChromeDriver();
+
+    //String browser = String.valueOf(Browser.FIREFOX);
+
+    if (browser.equals(Browser.CHROME)) {
+      System.setProperty("webdriver.chrome.driver", "libs/chromedriver.exe");
+      wd = new ChromeDriver();
+
+    } else if (browser.equals(Browser.FIREFOX)){
+      System.out.println("FIREFOX FIREFOX FIREFOX FIREFOX FIREFOX FIREFOX");
+      System.setProperty("webdriver.gecko.driver", "libs/geckodriver.exe");
+      wd = new FirefoxDriver();
+    }
+
+    //System.setProperty("webdriver.chrome.driver", "libs/chromedriver.exe");
+
+    // wd = new ChromeDriver();
+
     wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     js = (JavascriptExecutor) wd;
     wd.get("http://localhost/addressbook/group.php");
