@@ -27,21 +27,12 @@ public class ApplicationManager {
 
   public void init() {
 
-    //String browser = String.valueOf(Browser.FIREFOX);
-
     if (browser.equals(Browser.CHROME)) {
-      System.setProperty("webdriver.chrome.driver", "libs/chromedriver.exe");
       wd = new ChromeDriver();
-
     } else if (browser.equals(Browser.FIREFOX)){
-      System.out.println("FIREFOX FIREFOX FIREFOX FIREFOX FIREFOX FIREFOX");
-      System.setProperty("webdriver.gecko.driver", "libs/geckodriver.exe");
       wd = new FirefoxDriver();
     }
 
-    //System.setProperty("webdriver.chrome.driver", "libs/chromedriver.exe");
-
-    // wd = new ChromeDriver();
 
     wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     js = (JavascriptExecutor) wd;
