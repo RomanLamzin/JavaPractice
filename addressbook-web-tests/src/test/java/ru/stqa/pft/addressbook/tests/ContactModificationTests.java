@@ -10,15 +10,10 @@ public class ContactModificationTests extends TestBase {
   public void testContactModification() {
     app.getContactHelper().gotoHomePage();
 
-//    if (! app.getGroupHelper().isThereGroup()) {
-//      app.getGroupHelper().createGroup(new GroupData("test", null, null));
-//    };
-
     if (! app.getContactHelper().isThereContact()) {
       app.getContactHelper().createContact(new ContactData("Roman", "Lamzin", "New-Studio",
               "Samara", "89277778781", "lamzinrn@gmail.com", "test"), true);
     };
-
 
     app.getContactHelper().selectContact();
     app.getContactHelper().initContactModification();
