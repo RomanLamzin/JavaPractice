@@ -12,7 +12,7 @@ public class ContactModificationTests extends TestBase {
 
     if (! app.getContactHelper().isThereContact()) {
       app.getContactHelper().createContact(new ContactData("Roman", "Lamzin", "New-Studio",
-              "Samara", "89277778781", "lamzinrn@gmail.com", "test"), true);
+              "Samara", "89277778781", "lamzinrn@gmail.com", "test"));
     };
 
     app.getContactHelper().selectContact();
