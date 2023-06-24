@@ -6,10 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import static org.testng.Assert.assertTrue;
 
+
 public class ContactHelper extends HelperBase {
+  GroupHelper groupHelper = new GroupHelper(wd);
 
   private boolean acceptNextAlert = true;
 
@@ -36,9 +39,9 @@ public class ContactHelper extends HelperBase {
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.Group());
-    }
-    else {
+    } else {
       Assert.assertFalse(isElementPresent((By.name("new_group"))));
+
     }
   }
 
@@ -84,7 +87,13 @@ public class ContactHelper extends HelperBase {
 
   public void createContact(ContactData group) {
     openAddNewContactForm();
-    fillNewContactForm(group,true);
+    if (!isElementPresent(By.xpath("//*[@id='content']/form/select[5]/option[2]"))) {
+      System.out.println(" No group is that place");
+      click(By.linkText("groups"));
+      groupHelper.createGroup(new GroupData("test", null, null));
+    };
+    openAddNewContactForm();
+    fillNewContactForm(group, true);
     submitFormContact();
     gotoHomePage();
   }
