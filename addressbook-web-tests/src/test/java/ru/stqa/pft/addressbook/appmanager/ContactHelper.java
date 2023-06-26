@@ -38,10 +38,10 @@ public class ContactHelper extends HelperBase {
     type(By.name("email"), contactData.email());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.Group());
-    } else {
-      Assert.assertFalse(isElementPresent((By.name("new_group"))));
+       wd.findElement(By.xpath("//*[@id='content']/form/select[5]/option[2]")).click();
 
+    } else {
+        Assert.assertFalse(isElementPresent((By.name("new_group"))));
     }
   }
 
@@ -88,10 +88,11 @@ public class ContactHelper extends HelperBase {
   public void createContact(ContactData group) {
     openAddNewContactForm();
     if (!isElementPresent(By.xpath("//*[@id='content']/form/select[5]/option[2]"))) {
-      System.out.println(" No group is that place");
+      System.out.println(" No group in that place");
       click(By.linkText("groups"));
       groupHelper.createGroup(new GroupData("test", null, null));
-    };
+    }
+    ;
     openAddNewContactForm();
     fillNewContactForm(group, true);
     submitFormContact();
