@@ -38,10 +38,16 @@ public class ContactHelper extends HelperBase {
     type(By.name("email"), contactData.email());
 
     if (creation) {
-       wd.findElement(By.xpath("//*[@id='content']/form/select[5]/option[2]")).click();
+      try {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.Group());
+        System.out.println("We  use  Group with name ---- " + contactData.Group());
+      } catch (Exception e) {
+        wd.findElement(By.xpath("//*[@id='content']/form/select[5]/option[2]")).click();
+        System.out.println("There is no Group with name ---- " + contactData.Group() + ", we selected first in list");
+      }
 
     } else {
-        Assert.assertFalse(isElementPresent((By.name("new_group"))));
+      Assert.assertFalse(isElementPresent((By.name("new_group"))));
     }
   }
 
