@@ -75,7 +75,7 @@ public class GroupHelper extends HelperBase {
       GroupData group = new GroupData(name, null,null);
       groups.add(group);
     }
-    System.out.println(groups);
+    System.out.println(" Check array __ " + groups);
     return groups;
   }
 }
