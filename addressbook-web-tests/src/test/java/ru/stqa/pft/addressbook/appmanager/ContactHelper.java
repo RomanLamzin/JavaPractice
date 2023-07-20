@@ -108,4 +108,9 @@ public class ContactHelper extends HelperBase {
   public boolean isThereContact() {
     return isElementPresent(By.name("selected[]"));
   }
+
+  public int getContactCount() {
+
+    return wd.findElements(By.xpath("//tr[contains(@name, 'entry')]")).size(); // метод wb который возввращает список у которого получаем размер  //tr[contains(@name, 'entry')]
+  }
 }
