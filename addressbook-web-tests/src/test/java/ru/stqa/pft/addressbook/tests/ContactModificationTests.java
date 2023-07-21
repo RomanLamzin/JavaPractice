@@ -13,13 +13,13 @@ public class ContactModificationTests extends TestBase {
     int before = app.getContactHelper().getContactCount();
 
     if (! app.getContactHelper().isThereContact()) {
-      app.getContactHelper().createContact(new ContactData("Roman", "Lamzin", "New-Studio",
+      app.getContactHelper().createContact(new ContactData("Rom", "Lamz", "New-Studio",
               "Samara", "89277778781", "lamzinrn@gmail.com", "test"));
     };
 
-    app.getContactHelper().selectContact();
-    app.getContactHelper().initContactModification();
-    app.getContactHelper().fillNewContactForm(new ContactData("Roman", "Lamzin", "Modification-Studio", "Modification-city",
+    app.getContactHelper().selectContact(before - 1); // выбор по индексу, к примеру последний элемент
+    app.getContactHelper().initContactModification(before - 1); // выбор по индексу, к примеру последний элемент edit
+    app.getContactHelper().fillNewContactForm(new ContactData("Rom", "Lamz", "Modification-Studio", "Modification-city",
             "89277778781", "Modification@gmail.com", null), false);
     app.getContactHelper().submitContactModification();
     app.getContactHelper().gotoHomePage();

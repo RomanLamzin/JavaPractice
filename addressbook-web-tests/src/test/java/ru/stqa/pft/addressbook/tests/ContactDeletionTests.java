@@ -20,7 +20,7 @@ public class ContactDeletionTests extends TestBase {
               "Samara", "89277778781", "lamzinrn@gmail.com", "test"));
     };
 
-    app.getContactHelper().selectContact();
+    app.getContactHelper().selectContact(before - 1); // выбор по индексу, к примеру последний элемент
     app.getContactHelper().deleteSelectedContact();
     app.getContactHelper().confirmDeletionContact();
     app.getContactHelper().gotoHomePage();
