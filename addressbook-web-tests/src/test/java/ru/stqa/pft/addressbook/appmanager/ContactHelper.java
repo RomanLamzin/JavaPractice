@@ -122,13 +122,16 @@ public class ContactHelper extends HelperBase {
   public List<ContactData> getContactList() {
 
     List<ContactData> contacts = new ArrayList<ContactData>();          // создаём список который будем заполнять(новый). Указываем конкретный класс который реализует ArrayList
-    List<WebElement> elements = wd.findElements(By.xpath("//tr[contains(@name, 'entry')]"));
-    for (WebElement element : elements){
-      String name = element.getText(); // получаем текст при переборе
-      ContactData contact = new ContactData(name, null, null, null, null, null, null);  // созд объект типа ContactData указываем пока имя
+    List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));
+
+    for (WebElement element : elements) {
+      String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
+      String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
+      String id = element.findElement(By.tagName("input")).getAttribute("value"); // достаём значение id
+      ContactData contact = new ContactData(id, name, lastname, null, null, null, null, null);  // созд объект типа ContactData указываем пока имя
       contacts.add(contact);// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
     }
 
-      return contacts; // возвращаем новый список (массив) который создан в начале тела данного  метода
+    return contacts; // возвращаем новый список (массив) который создан в начале тела данного  метода
   }
 }
