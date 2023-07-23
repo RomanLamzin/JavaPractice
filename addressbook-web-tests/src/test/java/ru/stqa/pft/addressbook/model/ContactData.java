@@ -7,6 +7,9 @@ public final class ContactData {
   private final String name;
   private final String lastname;
   private final String companyName;
+
+
+
   private final String cityContact;
   private final String mobile;
   private final String email;
@@ -14,7 +17,7 @@ public final class ContactData {
 
 
   public ContactData(String name, String lastname, String companyName, String cityContact, String mobile, String email, String Group) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.name = name;
     this.lastname = lastname;
     this.companyName = companyName;
@@ -72,25 +75,25 @@ public final class ContactData {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ContactData that = (ContactData) o;
-    return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, lastname);
-  }
-
-  @Override
   public String toString() {
     return "ContactData{" +
             "id='" + id + '\'' +
             ", name='" + name + '\'' +
             ", lastname='" + lastname + '\'' +
             '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, lastname);
   }
 
 
