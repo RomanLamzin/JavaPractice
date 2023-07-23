@@ -26,8 +26,6 @@ public class ContactModificationTests extends TestBase {
     app.getContactHelper().initContactModification(before.size() - 1); // выбор по индексу, к примеру последний элемент именно edit
 
 
-
-
     ContactData contact = new ContactData(before.get(before.size() - 1).getId(),"Rom", "ZZZZZZZ", null,
             null, null, null, null);
 
@@ -37,19 +35,11 @@ public class ContactModificationTests extends TestBase {
 
     List<ContactData> after = app.getContactHelper().getContactList(); // v2
 
-
-    System.out.println("this is after   " + after);
-
-
     Assert.assertEquals(after.size(), before.size()); // v2
 
     before.remove(before.size() - 1);
 
-    System.out.println("this is  remove  before -1   " + before);
-
     before.add(contact);
-
-    System.out.println("this is  add  contact   " + before);
 
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 

@@ -127,7 +127,7 @@ public class ContactHelper extends HelperBase {
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
       String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
-      String id = element.findElement(By.tagName("input")).getAttribute("value"); // достаём значение id
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // достаём значение id и преобразовываем строку в число
       ContactData contact = new ContactData(id, name, lastname, null, null, null, null, null);  // созд объект типа ContactData указываем пока имя
       contacts.add(contact);// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
     }
