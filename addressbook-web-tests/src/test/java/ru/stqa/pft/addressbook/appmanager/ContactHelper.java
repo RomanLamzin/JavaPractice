@@ -25,7 +25,7 @@ public class ContactHelper extends HelperBase {
   }
 
 
-  public void gotoHomePage() {
+  public void homePage() {
     click(By.linkText("home"));
   }
 
@@ -96,7 +96,7 @@ public class ContactHelper extends HelperBase {
   }
 
 
-  public void createContact(ContactData group) {
+  public void create(ContactData group) {
     openAddNewContactForm();
     if (!isElementPresent(By.xpath("//*[@id='content']/form/select[5]/option[2]"))) {
       System.out.println(" No group in that place");
@@ -107,8 +107,27 @@ public class ContactHelper extends HelperBase {
     openAddNewContactForm();
     fillNewContactForm(group, true);
     submitFormContact();
-    gotoHomePage();
+    homePage();
   }
+
+
+  public void modify(int index, ContactData contact) {
+    selectContact(index); // выбор по индексу, к примеру последний элемент
+    initContactModification(index); // выбор по индексу, к примеру последний элемент именно edit
+    fillNewContactForm(contact, false);
+    submitContactModification();
+    homePage();
+  }
+
+  public  void delete(int index) {
+    selectContact(index); // выбор по индексу, к примеру последний элемент
+    deleteSelectedContact();
+    confirmDeletionContact();
+    homePage();
+  }
+
+
+
 
   public boolean isThereContact() {
     return isElementPresent(By.name("selected[]"));
@@ -119,7 +138,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.xpath("//tr[contains(@name, 'entry')]")).size(); // метод wb который возввращает список у которого получаем размер  //tr[contains(@name, 'entry')]
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
 
     List<ContactData> contacts = new ArrayList<ContactData>();          // создаём список который будем заполнять(новый). Указываем конкретный класс который реализует ArrayList
     List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));

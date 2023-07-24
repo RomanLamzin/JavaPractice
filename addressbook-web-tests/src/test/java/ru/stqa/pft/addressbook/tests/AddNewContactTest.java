@@ -12,15 +12,15 @@ public class AddNewContactTest extends TestBase {
   @Test(enabled = false)
   public void testAddNewContact() throws Exception {
     app.goTo().gotoHomePage();
-    List<ContactData> before = app.getContactHelper().getContactList(); // список эл до создания контакта // v2
+    List<ContactData> before = app.contact().list(); // список эл до создания контакта // v2
 
     ContactData contact = new ContactData("Roman111", "Lamzin", "New-Studio",
             "Samara", "89277778781", "lamzinrn@gmail.com", "test");
 
-    app.getContactHelper().createContact(contact);
+    app.contact().create(contact);
     app.goTo().gotoHomePage();
 
-    List<ContactData> after = app.getContactHelper().getContactList(); // список эл после создания контакта // v2
+    List<ContactData> after = app.contact().list(); // список эл после создания контакта // v2
 
     Assert.assertEquals(after.size(), before.size() + 1); // v2 -- сравниваем размер списка
 
