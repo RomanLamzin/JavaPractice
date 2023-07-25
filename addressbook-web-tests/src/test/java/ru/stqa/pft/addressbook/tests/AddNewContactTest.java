@@ -14,8 +14,8 @@ public class AddNewContactTest extends TestBase {
     app.goTo().gotoHomePage();
     List<ContactData> before = app.contact().list(); // список эл до создания контакта // v2
 
-    ContactData contact = new ContactData("Roman111", "Lamzin", "New-Studio",
-            "Samara", "89277778781", "lamzinrn@gmail.com", "test");
+    ContactData contact = new ContactData().withName("Roman111").withLastname("Lamzin").withCompanyName("New-Studio")
+            .withCityContact("Samara").withMobile("89277778781").withEmail("lamzinrn@gmail.com").withGroup("test");
 
     app.contact().create(contact);
     app.goTo().gotoHomePage();

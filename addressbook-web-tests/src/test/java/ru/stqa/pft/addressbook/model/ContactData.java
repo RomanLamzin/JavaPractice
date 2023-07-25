@@ -3,45 +3,56 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public final class ContactData {
-  private int id;
-  private final String name;
-  private final String lastname;
-  private final String companyName;
+  private int id = Integer.MAX_VALUE;
+  private String name;
+  private String lastname;
+  private String companyName;
+  private String cityContact;
+  private String mobile;
+  private String email;
+  private String Group;
 
 
-
-  private final String cityContact;
-  private final String mobile;
-  private final String email;
-  private final String Group;
-
-
-  public ContactData(String name, String lastname, String companyName, String cityContact, String mobile, String email, String Group) {
-    this.id = Integer.MAX_VALUE;
-    this.name = name;
-    this.lastname = lastname;
-    this.companyName = companyName;
-    this.cityContact = cityContact;
-    this.mobile = mobile;
-    this.email = email;
-    this.Group = Group;
-  }
-
-
-  public ContactData(int id, String name, String lastname, String companyName, String cityContact, String mobile, String email, String Group) {
+  public ContactData withId(int id) {
     this.id = id;
-    this.name = name;
-    this.lastname = lastname;
-    this.companyName = companyName;
-    this.cityContact = cityContact;
-    this.mobile = mobile;
-    this.email = email;
-    this.Group = Group;
+    return this;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public ContactData withName(String name) {
+    this.name = name;
+    return this;
   }
+
+  public ContactData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData withCompanyName(String companyName) {
+    this.companyName = companyName;
+    return this;
+  }
+
+  public ContactData withCityContact(String cityContact) {
+    this.cityContact = cityContact;
+    return this;
+  }
+
+  public ContactData withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    Group = group;
+    return this;
+  }
+
   public int getId() {
     return id;
   }

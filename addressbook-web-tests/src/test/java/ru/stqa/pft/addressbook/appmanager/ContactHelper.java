@@ -119,14 +119,12 @@ public class ContactHelper extends HelperBase {
     homePage();
   }
 
-  public  void delete(int index) {
+  public void delete(int index) {
     selectContact(index); // выбор по индексу, к примеру последний элемент
     deleteSelectedContact();
     confirmDeletionContact();
     homePage();
   }
-
-
 
 
   public boolean isThereContact() {
@@ -147,8 +145,7 @@ public class ContactHelper extends HelperBase {
       String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
       String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // достаём значение id и преобразовываем строку в число
-      ContactData contact = new ContactData(id, name, lastname, null, null, null, null, null);  // созд объект типа ContactData указываем пока имя
-      contacts.add(contact);// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
+      contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
     }
 
     return contacts; // возвращаем новый список (массив) который создан в начале тела данного  метода
