@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AddNewContactTest extends TestBase {
 
-  @Test(enabled = false)
+  @Test
   public void testAddNewContact() throws Exception {
     app.goTo().gotoHomePage();
     List<ContactData> before = app.contact().list(); // список эл до создания контакта // v2

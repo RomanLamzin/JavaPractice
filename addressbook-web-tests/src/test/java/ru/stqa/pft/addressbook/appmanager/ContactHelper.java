@@ -101,7 +101,7 @@ public class ContactHelper extends HelperBase {
     if (!isElementPresent(By.xpath("//*[@id='content']/form/select[5]/option[2]"))) {
       System.out.println(" No group in that place");
       click(By.linkText("groups"));
-      groupHelper.create(new GroupData("test", null, null));
+      groupHelper.create(new GroupData().withName("test"));
     }
     ;
     openAddNewContactForm();
