@@ -10,7 +10,9 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
 
@@ -71,6 +73,13 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectContactById(int id)
+  {
+    wd.findElement(By.cssSelector("input[value='"+ id + "']")).click();
+  }
+
+
+
   public String closeAlertAndGetItsText() {
     try {
       Alert alert = wd.switchTo().alert();
@@ -110,21 +119,51 @@ public class ContactHelper extends HelperBase {
     homePage();
   }
 
+////////////////
 
-  public void modify(int index, ContactData contact) {
-    selectContact(index); // выбор по индексу, к примеру последний элемент
-    initContactModification(index); // выбор по индексу, к примеру последний элемент именно edit
-    fillNewContactForm(contact, false);
+  private void editContactById(ContactData contactData) {
+    click(By.xpath("//table[@id='maintable']/tbody/tr/td/a[@href='edit.php?id=" + contactData.getId() + "']"));
+
+  }
+
+//  private void selectContactById(ContactData contactData) {
+//    click(By.xpath("//table[@id='maintable']/tbody/tr/td/input[@value='" + contactData.getId() + "']"));
+//  }
+
+
+
+  public void modify(ContactData contactData) {
+    editContactById(contactData);//передается номер строки, которую редактируем
+    fillNewContactForm(contactData,false);
     submitContactModification();
     homePage();
   }
 
-  public void delete(int index) {
-    selectContact(index); // выбор по индексу, к примеру последний элемент
+
+//  public void modify(ContactData contact) {
+//    selectContactById(contact.getId()); // выбор по индексу, к примеру последний элемент
+//    initContactModification(editN); // выбор по индексу, к примеру последний элемент именно edit
+//    fillNewContactForm(contact, false);
+//    submitContactModification();
+//    homePage();
+//  }
+
+//  public void delete(int index) {
+//    selectContact(index); // выбор по индексу, к примеру последний элемент
+//    deleteSelectedContact();
+//    confirmDeletionContact();
+//    homePage();
+//  }
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId()); // выбор по индексу, к примеру последний элемент
     deleteSelectedContact();
     confirmDeletionContact();
     homePage();
   }
+
+
+
 
 
   public boolean isThereContact() {
@@ -150,4 +189,24 @@ public class ContactHelper extends HelperBase {
 
     return contacts; // возвращаем новый список (массив) который создан в начале тела данного  метода
   }
+
+
+
+  public Set<ContactData> all() {
+
+    Set<ContactData> contacts = new HashSet<ContactData>();          // создаём список который будем заполнять(новый). Указываем конкретный класс который реализует ArrayList
+    List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));
+
+    for (WebElement element : elements) {
+      String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
+      String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // достаём значение id и преобразовываем строку в число
+      contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
+    }
+
+    return contacts; // возвращаем новый список (массив) который создан в начале тела данного  метода
+  }
+
+
+
 }

@@ -4,6 +4,20 @@ import java.util.Objects;
 
 public final class ContactData {
   private int id = Integer.MAX_VALUE;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, lastname);
+  }
+
   private String name;
   private String lastname;
   private String companyName;
@@ -92,19 +106,6 @@ public final class ContactData {
             ", name='" + name + '\'' +
             ", lastname='" + lastname + '\'' +
             '}';
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ContactData that = (ContactData) o;
-    return Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, lastname);
   }
 
 
