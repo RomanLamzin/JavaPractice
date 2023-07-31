@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -26,14 +27,14 @@ public class ContactDeletionTests extends TestBase {
   @Test
   public void testContactDelletion() throws Exception {
 
-    Contacts before = app.contact().all(); // v2
+    Contacts before = app.contact().all();
     ContactData deletedContact = before.iterator().next();
     app.contact().delete(deletedContact);
-    Contacts after = app.contact().all(); // v2
-    assertThat(after.size(), equalTo(before.size() - 1)); // при работе со списками используем метод size // v2
+
+    assertThat(app.contact().count(), Matchers.equalTo(before.size() - 1));
+    Contacts after = app.contact().all();
     assertThat(after, equalTo(before.without(deletedContact)));
 
   }
-
 
 }

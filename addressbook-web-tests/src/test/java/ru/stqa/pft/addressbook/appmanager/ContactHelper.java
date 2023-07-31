@@ -11,9 +11,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
 
@@ -168,7 +166,7 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int getContactCount() {
+  public int count() {
 
     return wd.findElements(By.xpath("//tr[contains(@name, 'entry')]")).size(); // метод wb который возввращает список у которого получаем размер  //tr[contains(@name, 'entry')]
   }

@@ -12,21 +12,14 @@ public class AddNewContactTest extends TestBase {
   @Test
   public void testAddNewContact() throws Exception {
     app.goTo().gotoHomePage();
-    Contacts before = app.contact().all(); // список эл до создания контакта // v2
-
+    Contacts before = app.contact().all();
     ContactData contact = new ContactData().withName("Roman111").withLastname("Lamzin").withCompanyName("New-Studio")
             .withCityContact("Samara").withMobile("89277778781").withEmail("lamzinrn@gmail.com").withGroup("test");
-
     app.contact().create(contact);
     app.goTo().gotoHomePage();
 
-    Contacts after = app.contact().all(); // список эл после создания контакта // v2
-
-    assertThat(after.size(), equalTo(before.size() + 1)); // v2 -- сравниваем размер списка
-
-//    contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-
-
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
+    Contacts after = app.contact().all();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
