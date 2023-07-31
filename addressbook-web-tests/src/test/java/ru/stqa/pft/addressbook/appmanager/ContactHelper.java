@@ -74,11 +74,9 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void selectContactById(int id)
-  {
-    wd.findElement(By.cssSelector("input[value='"+ id + "']")).click();
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
-
 
 
   public String closeAlertAndGetItsText() {
@@ -117,6 +115,7 @@ public class ContactHelper extends HelperBase {
     openAddNewContactForm();
     fillNewContactForm(group, true);
     submitFormContact();
+    contactCache = null;
     homePage();
   }
 
@@ -132,11 +131,11 @@ public class ContactHelper extends HelperBase {
 //  }
 
 
-
   public void modify(ContactData contactData) {
     editContactById(contactData);//передается номер строки, которую редактируем
-    fillNewContactForm(contactData,false);
+    fillNewContactForm(contactData, false);
     submitContactModification();
+    contactCache = null;
     homePage();
   }
 
@@ -160,11 +159,9 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId()); // выбор по индексу, к примеру последний элемент
     deleteSelectedContact();
     confirmDeletionContact();
+    contactCache = null;
     homePage();
   }
-
-
-
 
 
   public boolean isThereContact() {
@@ -192,22 +189,26 @@ public class ContactHelper extends HelperBase {
   }
 
 
+  private Contacts contactCache = null;
 
   public Contacts all() {
 
-    Contacts contacts = new Contacts();          // создаём список который будем заполнять(новый). Указываем конкретный класс который реализует ArrayList
+    if (contactCache !=null){
+      return new Contacts(contactCache);
+    }
+
+    contactCache = new Contacts();          // создаём список который будем заполнять(новый). Указываем конкретный класс который реализует ArrayList
     List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));
 
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
       String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // достаём значение id и преобразовываем строку в число
-      contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
+      contactCache.add(new ContactData().withId(id).withName(name).withLastname(lastname));// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
     }
 
-    return contacts; // возвращаем новый список (массив) который создан в начале тела данного  метода
+    return new Contacts(contactCache); // возвращаем новый список (массив) который создан в начале тела данного  метода
   }
-
 
 
 }
