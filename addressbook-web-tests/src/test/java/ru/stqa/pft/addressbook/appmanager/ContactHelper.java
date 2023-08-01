@@ -125,7 +125,6 @@ public class ContactHelper extends HelperBase {
   }
 
 
-
   public void modify(ContactData contactData) {
     editContactById(contactData);//передается номер строки, которую редактируем
     fillNewContactForm(contactData, false);
@@ -133,7 +132,6 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
     homePage();
   }
-
 
 
   public void delete(ContactData contact) {
@@ -174,7 +172,7 @@ public class ContactHelper extends HelperBase {
 
   public Contacts all() {
 
-    if (contactCache !=null){
+    if (contactCache != null) {
       return new Contacts(contactCache);
     }
 
@@ -184,8 +182,11 @@ public class ContactHelper extends HelperBase {
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
       String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
+      String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // достаём значение id и преобразовываем строку в число
-      contactCache.add(new ContactData().withId(id).withName(name).withLastname(lastname));// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
+      contactCache.add(new ContactData().withId(id).withName(name).withLastname(lastname)
+              .withHomePhone(phones[0]).withMobile(phones[1]).withWorkPhone(phones[2]));// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
     }
 
     return new Contacts(contactCache); // возвращаем новый список (массив) который создан в начале тела данного  метода
@@ -196,6 +197,7 @@ public class ContactHelper extends HelperBase {
 
     initContactModificationById(contact.getId());
     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
@@ -207,6 +209,6 @@ public class ContactHelper extends HelperBase {
   }
 
   private void initContactModificationById(int id) {
-    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id)));
+    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
   }
 }
