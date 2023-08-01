@@ -5,24 +5,17 @@ import java.util.Objects;
 public final class ContactData {
   private int id = Integer.MAX_VALUE;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ContactData that = (ContactData) o;
-    return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, lastname);
-  }
 
   private String name;
   private String lastname;
   private String companyName;
   private String cityContact;
   private String mobile;
+
+  private String homePhone;
+
+  private String workPhone;
+
   private String email;
   private String Group;
 
@@ -56,6 +49,18 @@ public final class ContactData {
     this.mobile = mobile;
     return this;
   }
+
+  public ContactData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+    return this;
+  }
+
+
+  public ContactData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
 
   public ContactData withEmail(String email) {
     this.email = email;
@@ -91,6 +96,14 @@ public final class ContactData {
     return mobile;
   }
 
+  public String homePhone() {
+    return homePhone;
+  }
+
+  public String workPhone() {
+    return workPhone;
+  }
+
   public String email() {
     return email;
   }
@@ -106,6 +119,19 @@ public final class ContactData {
             ", name='" + name + '\'' +
             ", lastname='" + lastname + '\'' +
             '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, lastname);
   }
 
 

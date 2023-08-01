@@ -124,9 +124,6 @@ public class ContactHelper extends HelperBase {
 
   }
 
-//  private void selectContactById(ContactData contactData) {
-//    click(By.xpath("//table[@id='maintable']/tbody/tr/td/input[@value='" + contactData.getId() + "']"));
-//  }
 
 
   public void modify(ContactData contactData) {
@@ -138,20 +135,6 @@ public class ContactHelper extends HelperBase {
   }
 
 
-//  public void modify(ContactData contact) {
-//    selectContactById(contact.getId()); // выбор по индексу, к примеру последний элемент
-//    initContactModification(editN); // выбор по индексу, к примеру последний элемент именно edit
-//    fillNewContactForm(contact, false);
-//    submitContactModification();
-//    homePage();
-//  }
-
-//  public void delete(int index) {
-//    selectContact(index); // выбор по индексу, к примеру последний элемент
-//    deleteSelectedContact();
-//    confirmDeletionContact();
-//    homePage();
-//  }
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId()); // выбор по индексу, к примеру последний элемент
@@ -209,4 +192,21 @@ public class ContactHelper extends HelperBase {
   }
 
 
+  public ContactData infoFromEditForm(ContactData contact) {
+
+    initContactModificationById(contact.getId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+    return new ContactData().withId(contact.getId()).withName(firstname)
+            .withLastname(lastname).withMobile(mobile).withHomePhone(home).withWorkPhone(work);
+
+  }
+
+  private void initContactModificationById(int id) {
+    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id)));
+  }
 }
