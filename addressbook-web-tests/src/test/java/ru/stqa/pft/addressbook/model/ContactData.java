@@ -11,13 +11,25 @@ public final class ContactData {
   private String companyName;
   private String cityContact;
   private String mobile;
-
   private String homePhone;
-
   private String workPhone;
-
+  private String allPhones;
   private String email;
   private String Group;
+
+
+
+
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
 
 
   public ContactData withId(int id) {

@@ -182,11 +182,12 @@ public class ContactHelper extends HelperBase {
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
       String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
-      String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
 
+      String allPhones = element.findElement(By.xpath(".//td[6]")).getText(); // все записи
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // достаём значение id и преобразовываем строку в число
+
       contactCache.add(new ContactData().withId(id).withName(name).withLastname(lastname)
-              .withHomePhone(phones[0]).withMobile(phones[1]).withWorkPhone(phones[2]));// добавляем созданный объект в список, т.е. добавляем новое значение в массив contacts
+              .withAllPhones(allPhones)); // берем все телефоны
     }
 
     return new Contacts(contactCache); // возвращаем новый список (массив) который создан в начале тела данного  метода
