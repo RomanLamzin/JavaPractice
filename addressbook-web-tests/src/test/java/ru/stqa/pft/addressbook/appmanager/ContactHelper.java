@@ -182,11 +182,14 @@ public class ContactHelper extends HelperBase {
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText(); // получаем текст при переборе  name
       String lastname = element.findElement(By.xpath(".//td[2]")).getText(); // получаем текст при переборе lastname
-
-      String allPhones = element.findElement(By.xpath(".//td[6]")).getText(); // все записи
+      String homeAddress = element.findElement(By.xpath(".//td[4]")).getText();
+      String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
+      String allPhones = element.findElement(By.xpath(".//td[6]")).getText(); // все записи телефонов
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // достаём значение id и преобразовываем строку в число
 
       contactCache.add(new ContactData().withId(id).withName(name).withLastname(lastname)
+              .withHomeAddress(homeAddress)
+              .withAllEmails(allEmails) // берем все Emails
               .withAllPhones(allPhones)); // берем все телефоны
     }
 
@@ -194,22 +197,31 @@ public class ContactHelper extends HelperBase {
   }
 
 
-  public ContactData infoFromEditForm(ContactData contact) {
+  public ContactData infoFromEditForm(ContactData contact) { // забираем данные со страницы редактирования контакта
 
     initContactModificationById(contact.getId());
     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
-
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getAttribute("value");
+    String email = wd.findElement(By.name("email")).getAttribute("value");
+    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+
     wd.navigate().back();
     return new ContactData().withId(contact.getId()).withName(firstname)
-            .withLastname(lastname).withMobile(mobile).withHomePhone(home).withWorkPhone(work);
+            .withLastname(lastname).withMobile(mobile).withHomePhone(home).withWorkPhone(work)
+            .withHomeAddress(address)
+            .withEmail(email)
+            .withEmail2(email2)
+            .withEmail3(email3)
+            ;
 
   }
 
   private void initContactModificationById(int id) {
-    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
+    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click(); // клик по edit на главной
   }
 }
